@@ -107,14 +107,18 @@ def process_log_files(conn, cur, filepath):
     
     time_data = time_data.drop('ts',axis='columns')
     
-    # copy time data into postgres (no key to dedup here - could create one...)
-    copy_from_file(conn, cur, time_data, 'time')
+    # Insert time data into postgres 
+    for i, row in time_data.iterrows():
+        cur.execute(time_table_insert, row)
+    #copy_from_file(conn, cur, time_data, 'time') - need to learn how to approach copies with conflicts
 
     # transform user table and dedup
     user_data = log_df[['userId','firstName','lastName','gender','level']]
 
-    # copy user data into postgres
-    copy_from_file(conn, cur, user_data, 'users')
+    # Insert user data into postgres
+    for i, row in user_data.iterrows():
+        cur.execute(user_table_insert, row)
+    #copy_from_file(conn, cur, user_data, 'users')
 
     # transform songplay records dataframe
     processing_log_list =[]
