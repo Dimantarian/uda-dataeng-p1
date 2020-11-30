@@ -23,7 +23,7 @@ user_table_create = ("""CREATE TABLE IF NOT EXISTS  users(
 
 song_table_create = (
     """CREATE TABLE IF NOT EXISTS songs (song_id VARCHAR(50) PRIMARY KEY, \
-    title VARCHAR(255), artist_id VARCHAR(50), year INT, duration INT);""")
+    title VARCHAR(255), artist_id VARCHAR(50), year INT, duration REAL);""")
 
 artist_table_create = (
     """CREATE TABLE IF NOT EXISTS artists (artist_id VARCHAR(50) PRIMARY KEY, \
